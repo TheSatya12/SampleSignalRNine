@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using SampleSignalRNine.Hubs;
 using SampleSignalRNine.Models;
 
 namespace SampleSignalRNine.Controllers
@@ -7,10 +9,12 @@ namespace SampleSignalRNine.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHubContext<DeathlyHallowsHub> _deathlyHub;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,IHubContext<DeathlyHallowsHub> deathlyHub)
         {
             _logger = logger;
+            _deathlyHub = deathlyHub;
         }
 
         public IActionResult Index()
@@ -23,6 +27,10 @@ namespace SampleSignalRNine.Controllers
             {
                 SD.DeathlyHallowRace[type]++;
             }
+            await _deathlyHub.Clients.All.SendAsync("updateDeathlyHallowCount",
+                SD.DeathlyHallowRace[SD.Cloak],
+                SD.DeathlyHallowRace[SD.Stone],
+                SD.DeathlyHallowRace[SD.Wand]);
             return Accepted();
         }
 
