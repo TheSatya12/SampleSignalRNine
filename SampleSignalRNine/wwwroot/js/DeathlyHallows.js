@@ -16,9 +16,6 @@ connectionDeathlyHallows.on("updateDeathlyHallowCount", (cloak,stone,wand) => {
     console.log(cloak.toString() + " " + stone.toString() + " " + wand.toString());
 });
  
- 
- 
-
 //Start Connection
 function fullFilled() {
     connectionDeathlyHallows.invoke("GetRaceStatus").then((raceCounter) => {

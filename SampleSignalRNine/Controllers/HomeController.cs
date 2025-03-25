@@ -23,14 +23,23 @@ namespace SampleSignalRNine.Controllers
         }
         public async Task<IActionResult> DeathlyHallows(string type)
         {
-            if (SD.DeathlyHallowRace.ContainsKey(type))
+            try
             {
-                SD.DeathlyHallowRace[type]++;
+                if (SD.DeathlyHallowRace.ContainsKey(type))
+                {
+                    SD.DeathlyHallowRace[type]++;
+                }
+
+                await _deathlyHub.Clients.All.SendAsync("updateDeathlyHallowCount",
+                    SD.DeathlyHallowRace[SD.Cloak],
+                    SD.DeathlyHallowRace[SD.Stone],
+                    SD.DeathlyHallowRace[SD.Wand]);
+                 
             }
-            await _deathlyHub.Clients.All.SendAsync("updateDeathlyHallowCount",
-                SD.DeathlyHallowRace[SD.Cloak],
-                SD.DeathlyHallowRace[SD.Stone],
-                SD.DeathlyHallowRace[SD.Wand]);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating Deathly Hallow count for {Type}", type);
+            }
             return Accepted();
         }
 
