@@ -21,6 +21,7 @@ namespace SampleSignalRNine.Controllers
         {
             return View();
         }
+        [HttpPost]
         public async Task<IActionResult> DeathlyHallows(string type)
         {
             try
@@ -43,7 +44,25 @@ namespace SampleSignalRNine.Controllers
             return Accepted();
         }
 
+        public async Task<IActionResult> UserCount()
+        {
+            return View();
+        }
+        public async Task<IActionResult> HouseGroup()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult DeathlyHallows()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Notification()
         {
             return View();
         }
