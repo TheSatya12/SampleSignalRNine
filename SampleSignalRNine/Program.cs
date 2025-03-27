@@ -53,5 +53,6 @@ app.MapHub<HouseGroupHub>("/hubs/houseGroup");
 app.MapHub<NotificationHub>("/hubs/notificationCode");
 
 app.MapHub<ChatHub>("/hubs/chatCode");
+app.MapHub<OrderHub>("/hubs/OrderTable");
 
 app.Run();

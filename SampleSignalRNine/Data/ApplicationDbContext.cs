@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SampleSignalRNine.Models;
 
 namespace SampleSignalRNine.Data
 {
@@ -9,5 +10,6 @@ namespace SampleSignalRNine.Data
             : base(options)
         {
         }
+        public DbSet<Order> Orders { get; set; }
     }
 }
